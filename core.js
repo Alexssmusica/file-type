@@ -10,7 +10,7 @@ const { extensions, mimeTypes } = require('./supported.js');
 
 const minimumBytes = 4100; // A fair amount of file-types are detectable within this range.
 
-export async function fileTypeFromStream(stream) {
+async function fileTypeFromStream(stream) {
 	const tokenizer = await strtok3.fromStream(stream);
 	try {
 		return await fileTypeFromTokenizer(tokenizer);
@@ -19,7 +19,7 @@ export async function fileTypeFromStream(stream) {
 	}
 }
 
-export async function fileTypeFromBuffer(input) {
+async function fileTypeFromBuffer(input) {
 	if (!(input instanceof Uint8Array || input instanceof ArrayBuffer)) {
 		throw new TypeError(`Expected the \`input\` argument to be of type \`Uint8Array\` or \`Buffer\` or \`ArrayBuffer\`, got \`${typeof input}\``);
 	}
@@ -33,7 +33,7 @@ export async function fileTypeFromBuffer(input) {
 	return fileTypeFromTokenizer(strtok3.fromBuffer(buffer));
 }
 
-export async function fileTypeFromBlob(blob) {
+async function fileTypeFromBlob(blob) {
 	const buffer = await blob.arrayBuffer();
 	return fileTypeFromBuffer(new Uint8Array(buffer));
 }
@@ -59,7 +59,7 @@ function _check(buffer, headers, options) {
 	return true;
 }
 
-export async function fileTypeFromTokenizer(tokenizer) {
+async function fileTypeFromTokenizer(tokenizer) {
 	try {
 		return new FileTypeParser().parse(tokenizer);
 	} catch (error) {
@@ -1602,7 +1602,7 @@ class FileTypeParser {
 	}
 }
 
-export async function fileTypeStream(readableStream, {sampleSize = minimumBytes} = {}) {
+async function fileTypeStream(readableStream, {sampleSize = minimumBytes} = {}) {
 	const stream = require('stream').default;
 
 	return new Promise((resolve, reject) => {
@@ -1642,5 +1642,10 @@ const supportedMimeTypes = new Set(mimeTypes);
 
 module.exports = {
 	supportedExtensions,
+	fileTypeFromStream,
+	fileTypeFromBuffer,
+	fileTypeFromTokenizer,
+	fileTypeStream,
+	fileTypeFromBlob,
 	supportedMimeTypes,
   };
