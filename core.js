@@ -1,12 +1,12 @@
-import {Buffer} from 'node:buffer';
-import * as Token from 'token-types';
-import * as strtok3 from 'strtok3/core'; // eslint-disable-line n/file-extension-in-import
-import {
-	stringToBytes,
-	tarHeaderChecksumMatches,
-	uint32SyncSafeToken,
-} from './util.js';
-import {extensions, mimeTypes} from './supported.js';
+const { Buffer } = require('buffer');
+const Token = require('token-types');
+const strtok3 = require('strtok3/core');
+const {
+  stringToBytes,
+  tarHeaderChecksumMatches,
+  uint32SyncSafeToken,
+} = require('./util.js');
+const { extensions, mimeTypes } = require('./supported.js');
 
 const minimumBytes = 4100; // A fair amount of file-types are detectable within this range.
 
@@ -1603,7 +1603,7 @@ class FileTypeParser {
 }
 
 export async function fileTypeStream(readableStream, {sampleSize = minimumBytes} = {}) {
-	const {default: stream} = await import('node:stream');
+	const stream = require('stream').default;
 
 	return new Promise((resolve, reject) => {
 		readableStream.on('error', reject);
@@ -1637,5 +1637,10 @@ export async function fileTypeStream(readableStream, {sampleSize = minimumBytes}
 	});
 }
 
-export const supportedExtensions = new Set(extensions);
-export const supportedMimeTypes = new Set(mimeTypes);
+const supportedExtensions = new Set(extensions);
+const supportedMimeTypes = new Set(mimeTypes);
+
+module.exports = {
+	supportedExtensions,
+	supportedMimeTypes,
+  };

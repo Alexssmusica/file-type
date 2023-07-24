@@ -1,15 +1,16 @@
-import {ReadableWebToNodeStream} from 'readable-web-to-node-stream';
-import {fileTypeFromStream as coreFileTypeFromStream} from './core.js';
+const { ReadableWebToNodeStream } = require('readable-web-to-node-stream');
+const { fileTypeFromStream: coreFileTypeFromStream, fileTypeFromTokenizer, fileTypeFromBuffer, fileTypeStream } = require('./core.js');
 
-export async function fileTypeFromStream(stream) {
-	const readableWebToNodeStream = new ReadableWebToNodeStream(stream);
-	const fileType = await coreFileTypeFromStream(readableWebToNodeStream);
-	await readableWebToNodeStream.close();
-	return fileType;
+async function fileTypeFromStream(stream) {
+  const readableWebToNodeStream = new ReadableWebToNodeStream(stream);
+  const fileType = await coreFileTypeFromStream(readableWebToNodeStream);
+  await readableWebToNodeStream.close();
+  return fileType;
 }
 
-export {
-	fileTypeFromTokenizer,
-	fileTypeFromBuffer,
-	fileTypeStream,
-} from './core.js';
+module.exports = {
+  fileTypeFromStream,
+  fileTypeFromTokenizer,
+  fileTypeFromBuffer,
+  fileTypeStream,
+};
