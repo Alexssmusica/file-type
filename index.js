@@ -1,4 +1,4 @@
-const strtok3 = require('strtok3');
+const strtok3 = require('@alexssmusica/strtok3');
 const { fileTypeFromTokenizer } = require('./core.js');
 
 async function fileTypeFromFile(path) {

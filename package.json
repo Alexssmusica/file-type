@@ -207,7 +207,7 @@
 	],
 	"dependencies": {
 		"readable-web-to-node-stream": "^3.0.2",
-		"strtok3": "^7.0.0",
+		"@alexssmusica/strtok3": "^7.0.1",
 		"token-types": "^5.0.1"
 	},
 	"devDependencies": {

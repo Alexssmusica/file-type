@@ -1,6 +1,6 @@
 const { Buffer } = require('buffer');
 const Token = require('token-types');
-const strtok3 = require('strtok3/core');
+const strtok3 = require('@alexssmusica/strtok3/core');
 const {
   stringToBytes,
   tarHeaderChecksumMatches,
